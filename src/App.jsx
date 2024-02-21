@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
+// import { responseData } from 
 import "./App.css";
 
 import $ from "jquery";
@@ -17,15 +18,13 @@ const WildlensMain = () => {
   const fileInputRef = useRef(null);
 
   const animalTitle = "";
-  const scientificName = "Canis lupus familiaris";
-  const description =
-    "Alors qu'on estimait autrefois que le Chien constituait une espèce à part entière (Canis canis ou encore Canis familiaris), les recherches génétiques contemporaines ont permis d'établir qu'il n'est que le résultat de la domestication du loup gris commun.";
-  const family = "Mammifère";
-  const size = `Il existe un grand nombre de ${animalTitle} de races différentes. De ce fait, il est compliqué d'estimer la taille.`;
-  const habitat = "Non estimable";
-  const region = "Hémisphère nord";
-  const funFact =
-    "L'empreinte de la truffe d'un chien est aussi unique que l'empreinte digitale chez les humains.";
+  const scientificName = animalInfo.espece_nom_latin;
+  const description = animalInfo.espece_description;
+  const family = animalInfo.famille_libelle;
+  const size = "unknown";
+  const habitat = animalInfo.espece_habitat;
+  const region = animalInfo.region_libelle;
+  const funFact = animalInfo.espece_fun_fact;
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
