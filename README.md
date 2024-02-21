@@ -1,8 +1,23 @@
-# React + Vite
+# MSPR 6.3
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ ## Compétences
+- Développer le back-end : Développer les composants de la solution IA sous forme d’API et/ou des
+programmes intégrés en utilisant des outils adaptés.
+- Développer le front-end : Développer l’interface homme-machine en utilisant les techniques, les outils
+et les plateformes dans l’objectif de rendre l’approche ergonomique et conforme à l’accessibilité
+numérique.
+- Mettre en œuvre des plans de tests définit pour préparer le déploiement de la solution I.A.
+- Superviser le fonctionnement de la solution IA à partir des outils de monitorage afin de détecter et
+corriger les éventuels dysfonctionnements dans une démarche d’amélioration continue.
+- Corriger les dysfonctionnements de son périmètre de responsabilité.
+- Réaliser les évolutions fonctionnelles de la solution I.A afin de répondre au besoin d’amélioration
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Résultat attendu :
+- Livraison du back-end conteneurisé
+- Livraison du front-end
+- Présence des 3 fonctionnalités attendues :
+- Classification d’une photo
+- Affichage des informations sur l’espèce reconnue
+- Recueil des données de prise de photo
+- Travail sur un outil de versioning
+- Livraison d’une documentation
