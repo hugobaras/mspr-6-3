@@ -21,3 +21,21 @@ corriger les éventuels dysfonctionnements dans une démarche d’amélioration 
 - Recueil des données de prise de photo
 - Travail sur un outil de versioning
 - Livraison d’une documentation
+
+
+## ToDo lors du téléchargement:
+
+### Informations bdd
+Modifier les infos relatives à la bdd dans server.cjs (port, user, password etc.)
+
+### Installer toutes les dépendances présentes dans le package.json
+npm install
+
+### Lancer WAMPP/XAMPP/MAMP
+
+### Lancer le serveur
+node server.cjs
+
+### Lancer l'application
+npm run dev
+
