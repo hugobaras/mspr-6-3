@@ -93,7 +93,7 @@ const WildlensMain = () => {
 
       // Exemple : http://127.0.0.1:3001/api/espece/Chat ou http://localhost/api/espece/Chat
       const response = await fetch(
-        `http://127.0.0.1:3001/api/espece/${speciesName}`
+        `http://10.60.136.71:3001/api/espece/${speciesName}`
       );
 
       // On récupère les infos renvoyés par l'api
@@ -209,7 +209,7 @@ const WildlensMain = () => {
         <div className="header">
           <img
             className="header__logo"
-            src="../public/logo_recadré.png"
+            src="logo_recadré.png"
             alt="Roboflow Inference"
           />
         </div>
@@ -225,7 +225,7 @@ const WildlensMain = () => {
                 onClick={() => fileInputRef.current.click()}
                 className="bttn right active"
               >
-                <img src="../public/photo.svg" alt="logo_photo" />
+                <img src="photo.svg" alt="logo_photo" />
               </button>
               <input
                 style={{ display: "none" }}

@@ -15,10 +15,10 @@ app.use(express.json());
 
 //Connexion à la BDD
 const db = mysql.createConnection({
-  host: "localhost",
-  port: "8889",
-  user: "root",
-  password: "root",
+  host: "172.20.0.2",
+  port: "3306",
+  user: "wildlens_user",
+  password: "iEI8NTMn7vDzTng",
   database: "wildlens",
 });
 

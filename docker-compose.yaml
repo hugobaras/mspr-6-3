@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wildlens
+      MYSQL_USER: wildlens_user
+      MYSQL_PASSWORD: iEI8NTMn7vDzTng
+      MYSQL_INIT_FILE: /docker-entrypoint-initdb.d/wildlens-container.sql
+    ports:
+      - "3306:3306"
+    volumes:
+      - /Users/hugobaras/dumps:/docker-entrypoint-initdb.d
+
+  backend:
+    image: mspr_6_3_back_end:1.5
+    ports:
+      - "10.60.136.71:3001:3001"
+    depends_on:
+      - mysql
