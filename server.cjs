@@ -38,7 +38,7 @@ app.get("/api/espece/:speciesName", (req, res) => {
 // Query qui permet d'executer la requête sql
   db.query(
     // Requête sql qui récupère toutes les infos en l'espece en fonction de son nom. ? puisque c'est une requête préparée
-    "SELECT espece_nom, espece_description, espece_habitat, espece_nom_latin, espece_fun_fact, espece_famille, espece_region, espece_taille FROM espece WHERE espece_nom = ?",
+    "SELECT espece_nom, espece_description, espece_habitat, espece_nom_latin, espece_fun_fact, espece_famille, espece_region, espece_taille, pe_url FROM espece JOIN photo_espece on fk_espece = espece_id WHERE espece_nom = ?",
     // Variable a passer dans la requête préparée (permet de limiter les injections sql)
     [speciesName],
     (err, result) => {

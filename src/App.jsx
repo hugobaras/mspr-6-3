@@ -272,7 +272,7 @@ const WildlensMain = () => {
           <div className="animal">
             <div className="topInfos">
               <img
-                src=""
+                src={speciesInfo.pe_url}
                 alt="dog"
               />
               <div className="topInfoTitle">

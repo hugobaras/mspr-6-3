@@ -240,13 +240,14 @@ input:disabled {
 .topInfos img {
   width: auto;
   height: 250px;
+  margin: 1em;
 }
 .topInfo {
   margin: 0 1em;
 }
 
 .title {
-  margin: 0;
+  margin-top: 1em;
 }
 
 .topInfo h2 {
@@ -266,4 +267,10 @@ input:disabled {
   border-radius: 1rem;
   padding: 0.5rem;
   margin: 1em;
+}
+
+
+.addedPicture {
+  width: 300px;
+  object-fit: cover;
 }
