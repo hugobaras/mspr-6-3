@@ -93,7 +93,7 @@ const WildlensMain = () => {
 
       // Exemple : http://127.0.0.1:3001/api/espece/Chat ou http://localhost/api/espece/Chat
       const response = await fetch(
-        `http://10.60.136.71:3001/api/espece/${speciesName}`
+        `http://localhost:3001/api/espece/${speciesName}`
       );
 
       // On récupère les infos renvoyés par l'api
