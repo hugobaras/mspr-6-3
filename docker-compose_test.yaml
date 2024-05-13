@@ -15,7 +15,9 @@ services:
       - /Users/hugobaras/dumps:/docker-entrypoint-initdb.d
 
   backend:
-    image: mspr_6_3_back_end:1.5
+    build:
+      context: .
+      dockerfile: Dockerfile.backend_test
     ports:
       - "3001:3001"
     depends_on:
