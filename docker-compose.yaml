@@ -20,9 +20,9 @@ services:
       - "3001:3001"
     depends_on:
       - mysql
-  frontend:
-    image: mspr_6_3_front_end:2.0
-    ports:
-      - "80:80"
-    depends_on:
-      - backend
+  # frontend:
+  #   image: mspr_6_3_front_end:2.0
+  #   ports:
+  #     - "80:80"
+  #   depends_on:
+  #     - backend

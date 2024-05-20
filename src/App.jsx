@@ -1,8 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useRef, useState } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 
-// Utilisation de jquery pour les requetes ajax 
+// Utilisation de jquery pour les requetes ajax
 import $ from "jquery";
 
 const WildlensMain = () => {
@@ -42,7 +42,7 @@ const WildlensMain = () => {
     const file = fileInputRef.current.files && fileInputRef.current.files[0];
 
     if (file) {
-      // Récupération des info du fichier déposé 
+      // Récupération des info du fichier déposé
 
       // Son chemin temporaire
       const path = fileInputRef.current.value.replace(/\\/g, "/");
@@ -86,11 +86,9 @@ const WildlensMain = () => {
     });
   };
 
-
   // Appel vers le serveur pour récupérer les infos de l'espèce en BDD
   const fetchSpeciesInfo = async (speciesName) => {
     try {
-
       // Exemple : http://127.0.0.1:3001/api/espece/Chat ou http://localhost/api/espece/Chat
       const response = await fetch(
         `http://localhost:3001/api/espece/${speciesName}`
@@ -112,7 +110,6 @@ const WildlensMain = () => {
 
   //Fonction pour récuperer les paramètre du formulaire
   const getSettingsFromForm = (cb) => {
-
     // On passe dans le tableau settings les informations passées en post dans le formulaire
     const settings = {
       method: "POST",
@@ -127,7 +124,6 @@ const WildlensMain = () => {
       "?api_key=" + apiKey,
     ];
 
-    
     const method = "upload";
 
     if (method === "upload") {
@@ -161,7 +157,7 @@ const WildlensMain = () => {
       };
     });
   };
-  
+
   // Fonction pour redimensionner une image en fonction de certaines dimensions maximales
   const resizeImage = (base64Str) => {
     // Redimensionnement de l'image avant l'envoi pour l'analyse
@@ -203,13 +199,12 @@ const WildlensMain = () => {
 
   return (
     <Router>
-
-    {/* onSubmit={handleFormSubmit} : on soumet le form sur handleFormSubmit */}
+      {/* onSubmit={handleFormSubmit} : on soumet le form sur handleFormSubmit */}
       <form onSubmit={handleFormSubmit}>
         <div className="header">
           <img
             className="header__logo"
-            src="logo_recadré.png"
+            src="https://cdn.discordapp.com/attachments/1084902852666855467/1242119425486884908/logo_recadre.png?ex=664cad5c&is=664b5bdc&hm=bb8774ff11a98724415622eb1c60b461298f9c8c72a593684f302ea518e04aa8&"
             alt="Roboflow Inference"
           />
         </div>
@@ -224,6 +219,7 @@ const WildlensMain = () => {
                 type="button"
                 onClick={() => fileInputRef.current.click()}
                 className="bttn right active"
+                label="Analyser l'image"
               >
                 <img src="photo.svg" alt="logo_photo" />
               </button>
@@ -259,9 +255,7 @@ const WildlensMain = () => {
               type="submit"
               className="bttn__primary"
               disabled={!fileName}
-            >
-              Analyser l'image
-            </button>
+            ></button>
           </div>
         </div>
       </form>
@@ -271,10 +265,7 @@ const WildlensMain = () => {
         {outputAnimal !== "" && (
           <div className="animal">
             <div className="topInfos">
-              <img
-                src={speciesInfo.pe_url}
-                alt="dog"
-              />
+              <img src={speciesInfo.pe_url} alt="dog" />
               <div className="topInfoTitle">
                 <h2 className="title">
                   {/* On affiche le nom de l'espece */}
