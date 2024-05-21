@@ -1,14 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
+/**
+ * Composant qui récupère et affiche des informations détaillées sur une espèce spécifique
+ * en fonction du nom de l'espèce fourni dans les paramètres de l'URL.
+ *
+ * @summary Infos
+ */
 const Infos = () => {
   const { speciesName } = useParams();
   const [speciesInfo, setSpeciesInfo] = useState({});
 
+  /**
+   * Récupère les informations sur l'espèce lorsque le composant est monté ou lorsque le nom de l'espèce change.
+   * @name useEffect
+   * @function
+   * @inner
+   */
   useEffect(() => {
     fetchSpeciesInfo(speciesName);
   }, [speciesName]);
 
+  /**
+   * Récupère des informations détaillées sur l'espèce depuis le serveur.
+   * @async
+   *  @function
+   * @name fetchSpeciesInfo
+   * @param {string} speciesName - Le nom de l'espèce pour lequel récupérer les informations.
+   */
   const fetchSpeciesInfo = async (speciesName) => {
     try {
       const response = await fetch(
@@ -16,7 +35,6 @@ const Infos = () => {
       );
       const data = await response.json();
       setSpeciesInfo(data);
-      console.log(data);
     } catch (error) {
       console.error(
         "Erreur lors de la récupération des informations sur l'espèce :",
@@ -25,6 +43,13 @@ const Infos = () => {
     }
   };
 
+  /**
+   * Met en majuscule la première lettre d'une chaîne de caractères.
+   * @name capitalize
+   *  @function
+   * @param {string} str - La chaîne de caractères à mettre en majuscule.
+   * @returns {string} - La chaîne de caractères en majuscule.
+   */
   const capitalize = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
@@ -45,11 +70,8 @@ const Infos = () => {
               <img src={speciesInfo.pe_url} alt="dog" />
               <div className="topInfoTitle">
                 <h2 className="title">
-                  {/* On affiche le nom de l'espece */}
                   {speciesName && capitalize(speciesName)}
                 </h2>
-
-                {/* Affichage des infos */}
                 <span>{speciesInfo.espece_nom_latin}</span>
                 <p>{speciesInfo.espece_description}</p>
               </div>
@@ -58,14 +80,12 @@ const Infos = () => {
               <div className="topInfo">
                 <h2 className="family">Famille</h2>
                 <span>
-                  {/* Si l'info = "" alors on affichage Inconnu */}
                   {speciesInfo.espece_famille &&
                   speciesInfo.espece_famille.trim() !== ""
                     ? speciesInfo.espece_famille.trim()
                     : "Inconnu"}
                 </span>
               </div>
-
               <div className="topInfo">
                 <h2 className="size">Taille</h2>
                 <span>
@@ -84,7 +104,6 @@ const Infos = () => {
                     : `Non estimable`}
                 </span>
               </div>
-
               <div className="topInfo">
                 <h2 className="region">Région</h2>
                 <span>
@@ -107,7 +126,6 @@ const Infos = () => {
           </div>
         )}
       </div>
-
       <Link to="/" className="link">
         <button type="button" className="bttn__primary">
           Scanner une autre empreinte

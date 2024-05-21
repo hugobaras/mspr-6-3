@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Info.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Info.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+
+/**
+ * Composant qui récupère et affiche des informations détaillées sur une espèce spécifique
+ * en fonction du nom de l'espèce fourni dans les paramètres de l'URL.
+ *
+ * @summary Infos
+ */
+const Infos = () => {
+  const { speciesName } = useParams();
+  const [speciesInfo, setSpeciesInfo] = useState({});
+
+  /**
+   * Récupère les informations sur l'espèce lorsque le composant est monté ou lorsque le nom de l'espèce change.
+   * @name useEffect
+   * @function
+   * @inner
+   */
+  useEffect(() => {
+    fetchSpeciesInfo(speciesName);
+  }, [speciesName]);
+
+  /**
+   * Récupère des informations détaillées sur l'espèce depuis le serveur.
+   * @async
+   *  @function
+   * @name fetchSpeciesInfo
+   * @param {string} speciesName - Le nom de l'espèce pour lequel récupérer les informations.
+   */
+  const fetchSpeciesInfo = async (speciesName) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3001/api/espece/${speciesName}`
+      );
+      const data = await response.json();
+      setSpeciesInfo(data);
+    } catch (error) {
+      console.error(
+        "Erreur lors de la récupération des informations sur l'espèce :",
+        error
+      );
+    }
+  };
+
+  /**
+   * Met en majuscule la première lettre d'une chaîne de caractères.
+   * @name capitalize
+   *  @function
+   * @param {string} str - La chaîne de caractères à mettre en majuscule.
+   * @returns {string} - La chaîne de caractères en majuscule.
+   */
+  const capitalize = (str) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+
+  return (
+    &lt;div>
+      &lt;div className="header">
+        &lt;img
+          className="header__logo"
+          src="https://cdn.discordapp.com/attachments/1084902852666855467/1242119425486884908/logo_recadre.png?ex=664cad5c&amp;is=664b5bdc&amp;hm=bb8774ff11a98724415622eb1c60b461298f9c8c72a593684f302ea518e04aa8&amp;"
+          alt="Roboflow Inference"
+        />
+      &lt;/div>
+      &lt;div className="result" id="resultContainer">
+        {speciesName !== "" &amp;&amp; (
+          &lt;div className="animal">
+            &lt;div className="topInfos">
+              &lt;img src={speciesInfo.pe_url} alt="dog" />
+              &lt;div className="topInfoTitle">
+                &lt;h2 className="title">
+                  {speciesName &amp;&amp; capitalize(speciesName)}
+                &lt;/h2>
+                &lt;span>{speciesInfo.espece_nom_latin}&lt;/span>
+                &lt;p>{speciesInfo.espece_description}&lt;/p>
+              &lt;/div>
+            &lt;/div>
+            &lt;div className="topInfosDesc">
+              &lt;div className="topInfo">
+                &lt;h2 className="family">Famille&lt;/h2>
+                &lt;span>
+                  {speciesInfo.espece_famille &amp;&amp;
+                  speciesInfo.espece_famille.trim() !== ""
+                    ? speciesInfo.espece_famille.trim()
+                    : "Inconnu"}
+                &lt;/span>
+              &lt;/div>
+              &lt;div className="topInfo">
+                &lt;h2 className="size">Taille&lt;/h2>
+                &lt;span>
+                  {speciesInfo.espece_taille &amp;&amp;
+                  speciesInfo.espece_taille.trim() !== ""
+                    ? speciesInfo.espece_taille.trim()
+                    : `Il existe un grand nombre de ${speciesName} de races différentes. De ce fait, il est compliqué d'estimer la taille.`}
+                &lt;/span>
+              &lt;/div>
+              &lt;div className="topInfo">
+                &lt;h2 className="habitat">Habitat&lt;/h2>
+                &lt;span>
+                  {speciesInfo.espece_habitat &amp;&amp;
+                  speciesInfo.espece_habitat.trim() !== ""
+                    ? speciesInfo.espece_habitat.trim()
+                    : `Non estimable`}
+                &lt;/span>
+              &lt;/div>
+              &lt;div className="topInfo">
+                &lt;h2 className="region">Région&lt;/h2>
+                &lt;span>
+                  {speciesInfo.espece_region &amp;&amp;
+                  speciesInfo.espece_region.trim() !== ""
+                    ? speciesInfo.espece_region.trim()
+                    : "Inconnu"}
+                &lt;/span>
+              &lt;/div>
+              &lt;div className="topInfo">
+                &lt;h2 className="funFact">Fun Fact&lt;/h2>
+                &lt;span>
+                  {speciesInfo.espece_fun_fact &amp;&amp;
+                  speciesInfo.espece_fun_fact.trim() !== ""
+                    ? speciesInfo.espece_fun_fact.trim()
+                    : "Inconnu"}
+                &lt;/span>
+              &lt;/div>
+            &lt;/div>
+          &lt;/div>
+        )}
+      &lt;/div>
+      &lt;Link to="/" className="link">
+        &lt;button type="button" className="bttn__primary">
+          Scanner une autre empreinte
+        &lt;/button>
+      &lt;/Link>
+    &lt;/div>
+  );
+};
+
+export default Infos;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Infos">Infos</a></li><li><a href="global.html#WildlensMain">WildlensMain</a></li><li><a href="global.html#capitalize">capitalize</a></li><li><a href="global.html#fetchSpeciesInfo">fetchSpeciesInfo</a></li><li><a href="global.html#getBase64fromFile">getBase64fromFile</a></li><li><a href="global.html#getSettingsFromForm">getSettingsFromForm</a></li><li><a href="global.html#handleFileChange">handleFileChange</a></li><li><a href="global.html#handleFormSubmit">handleFormSubmit</a></li><li><a href="global.html#infer">infer</a></li><li><a href="global.html#resizeImage">resizeImage</a></li><li><a href="global.html">useEffect</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Tue May 21 2024 14:34:28 GMT+0200 (heure d’été d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
