@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
  * @summary WildlensMain
  */
 const WildlensMain = () => {
-  // Définition des états locaux
   const [model] = useState("animal-print");
   const [version] = useState("3");
   const [apiKey] = useState("Q7a2kRHpLqtIAIRWoFIq");
@@ -18,16 +17,14 @@ const WildlensMain = () => {
   const [outputAnimal, setOutputAnimal] = useState("");
   const [outputMessage, setOutputMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const fileInputRef = useRef(null); // Référence pour l'élément de sélection de fichier
-  const navigate = useNavigate(); // Fonction de navigation fournie par React Router
+  const [file, setFile] = useState(null);
+  const fileInputRef = useRef(null);
+  const navigate = useNavigate();
 
   /**
-   *  Fonction appelée lors de la soumission du formulaire
-   * @name handleFormSubmit
-   * @function
-   * @param {string} event Le formulaire (et toutes les infos)
-   **/
-
+   * Fonction appelée lors de la soumission du formulaire
+   * @param {object} event - L'événement de soumission du formulaire
+   */
   const handleFormSubmit = (event) => {
     event.preventDefault(); // Empêche le comportement par défaut du formulaire
     setIsLoading(true); // Active le chargement
@@ -36,14 +33,14 @@ const WildlensMain = () => {
 
   /**
    * Fonction appelée lors du changement de fichier sélectionné
-   *  @name handleFileChange
-   *  @function
-   *
-   *  **/
-  const handleFileChange = () => {
-    const file = fileInputRef.current.files && fileInputRef.current.files[0];
+   * @param {object} e - L'événement de changement de fichier
+   */
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setFile(file);
+
     if (file) {
-      const path = fileInputRef.current.value.replace(/\\/g, "/");
+      const path = e.target.value.replace(/\\/g, "/");
       const parts = path.split("/");
       const filename = parts.pop();
       setFileName(filename);
@@ -56,13 +53,25 @@ const WildlensMain = () => {
     }
   };
 
-  /** Fonction pour l'analyse de l'image
-   *  @name infer
-   *  @function
-   * **/
+  /**
+   * Fonction pour l'analyse de l'image
+   */
   const infer = () => {
     setOutputMessage("Analyse de l'image ...");
     getSettingsFromForm((settings) => {
+      console.log(settings.data);
+      $.ajax({
+        url: "http://localhost:3001/api/upload",
+        type: "POST",
+        data: settings.data,
+        dataType: "json",
+        success: function (data) {
+          console.log("File uploaded successfully:", data);
+        },
+        error: function (error) {
+          console.error("Error uploading the file:", error);
+        },
+      });
       $.ajax(settings)
         .then((response) => {
           const topClass = response.top;
@@ -70,18 +79,41 @@ const WildlensMain = () => {
           navigate(`/infos/${topClass}`);
         })
         .fail(() => {
+          Swal.fire({
+            title: "Error!",
+            text: "Une erreur est survenue",
+            icon: "error",
+            confirmButtonText: "Ok",
+          });
           setOutputMessage("Erreur lors du chargement de la réponse...");
         })
         .always(() => {
           setIsLoading(false);
         });
+
+      // const formData = new FormData();
+
+      // fetch("http://localhost:3001/api/upload", {
+      //   method: "POST",
+      //   body: settings.data,
+      // })
+      //   .then((response) => {
+      //     console.log(response);
+      //     return response.json();
+      //   })
+      //   .then((data) => {
+      //     console.log("File uploaded successfully:", data);
+      //   })
+      //   .catch((error) => {
+      //     console.error("Error uploading the file:", error);
+      //   });
     });
   };
 
-  /** Fonction pour obtenir les paramètres de la requête
-   *  @name getSettingsFromForm
-   * @function
-   * **/
+  /**
+   * Fonction pour obtenir les paramètres de la requête
+   * @param {function} cb - Callback à exécuter avec les paramètres
+   */
   const getSettingsFromForm = (cb) => {
     const settings = {
       method: "POST",
@@ -97,7 +129,6 @@ const WildlensMain = () => {
 
     const method = "upload";
     if (method === "upload") {
-      const file = fileInputRef.current.files && fileInputRef.current.files[0];
       if (!file) {
         setIsLoading(false);
         return;
@@ -111,11 +142,11 @@ const WildlensMain = () => {
     }
   };
 
-  /** Fonction pour obtenir les données base64 du fichier
-   *  @name getBase64fromFile
-   * @function
-   * @param {file} file L'image déposée à transformer en base64
-   * **/
+  /**
+   * Fonction pour obtenir les données base64 du fichier
+   * @param {File} file - L'image déposée à transformer en base64
+   * @returns {Promise} - Promesse résolue avec l'image en base64
+   */
   const getBase64fromFile = (file) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -131,11 +162,11 @@ const WildlensMain = () => {
     });
   };
 
-  /** Fonction pour redimensionner l'image
-   *  @name resizeImage
-   *  @function
-   *  @param {string} base64Str L'image déposée transformée en base64
-   * **/
+  /**
+   * Fonction pour redimensionner l'image
+   * @param {string} base64Str - L'image déposée transformée en base64
+   * @returns {Promise} - Promesse résolue avec l'image redimensionnée en base64
+   */
   const resizeImage = (base64Str) => {
     return new Promise((resolve) => {
       const img = new Image();
@@ -174,7 +205,7 @@ const WildlensMain = () => {
         <div className="header">
           <img
             className="header__logo"
-            src="https://cdn.discordapp.com/attachments/1084902852666855467/1242119425486884908/logo_recadre.png?ex=664cad5c&is=664b5bdc&hm=bb8774ff11a98724415622eb1c60b461298f9c8c72a593684f302ea518e04aa8&"
+            src="https://cdn.discordapp.com/attachments/1084902852666855467/1242119425486884908/logo_recadre.png?ex=6670ee9c&is=666f9d1c&hm=7d199760d32315f06fbf7b9684e9bc2345d86696321a605c313df6f336e7a3c7&"
             alt="Roboflow Inference"
           />
         </div>

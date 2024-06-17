@@ -59,8 +59,8 @@ const Infos = () => {
       <div className="header">
         <img
           className="header__logo"
-          src="https://cdn.discordapp.com/attachments/1084902852666855467/1242119425486884908/logo_recadre.png?ex=664cad5c&is=664b5bdc&hm=bb8774ff11a98724415622eb1c60b461298f9c8c72a593684f302ea518e04aa8&"
-          alt="Roboflow Inference"
+          src="https://cdn.discordapp.com/attachments/1084902852666855467/1242119425486884908/logo_recadre.png?ex=6670ee9c&is=666f9d1c&hm=7d199760d32315f06fbf7b9684e9bc2345d86696321a605c313df6f336e7a3c7&"
+          alt="logo_wildlens"
         />
       </div>
       <div className="result" id="resultContainer">
